@@ -1,21 +1,46 @@
-<script setup lang="ts">
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-import HelloWorld from './components/HelloWorld.vue'
+<template>
+  <header class="header">{{ msg }}</header>
+  <SandBox></SandBox>
+  <footer class="footer">Power by Vitejs © Autel Energy</footer>
+</template>
+<script lang="ts">
+import { defineComponent } from "vue";
+import SandBox from "./components/sandbox.vue";
+export default defineComponent({
+  components: {
+    SandBox,
+  },
+  setup() {
+    return {
+      msg: "Autel Code Sandbox",
+    };
+  },
+});
 </script>
 
-<template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
-</template>
-
-<style>
+<style lang="less">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100vh;
+  .header,
+  .footer {
+    padding: 10px 0;
+  }
+}
+html,
+body,
+p,
+h1 {
+  margin: 0;
+}
+* {
+  box-sizing: border-box;
 }
 </style>
