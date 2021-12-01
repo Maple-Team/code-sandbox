@@ -1,7 +1,7 @@
 <template>
   <div class="cb-container">
     <div class="cb-editor">
-      <TextArea :codeObj="codeMap['/src/index.js']"></TextArea>
+      <TextArea :codeObj="codeMap['/src/index.jsx']"></TextArea>
       <TextArea :codeObj="codeMap['/src/App.jsx']"></TextArea>
       <TextArea :codeObj="codeMap['/src/data.json']"></TextArea>
       <TextArea :codeObj="codeMap['/src/App.css']"></TextArea>
@@ -28,7 +28,7 @@ export default defineComponent({
   data() {
     return {
       codeMap: {
-        "/src/index.js": {
+        "/src/index.jsx": {
           code: `
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -40,7 +40,7 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );`.trim(),
-          path: "/src/index.js",
+          path: "/src/index.jsx",
         },
         "/src/App.jsx": {
           code: `
@@ -123,7 +123,7 @@ button {
       if (sandbox) {
         (sandbox as HTMLIFrameElement).contentWindow?.postMessage({
           codeMap: JSON.parse(JSON.stringify(this.codeMap)),
-          entry: "/src/index.js",
+          entry: "/src/index.jsx",
           dependencies: {},
           externals: {
             react: "React",

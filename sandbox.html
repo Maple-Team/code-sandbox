@@ -5,8 +5,9 @@
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://unpkg.com/@babel/standalone@7.13.12/babel.min.js"></script>
-    <script src="https://unpkg.com/react@16.14.0/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@16.14.0/umd/react-dom.development.js"></script>
+    <script src="./lib/react.development.js"></script>
+    <script src="./lib/react-dom.development.js"></script>
+    <script src="./lib/utils.js"></script>
     <title>iframe preview</title>
     <style>
       html,
@@ -19,38 +20,15 @@
   </head>
   <body>
     <div id="root"></div>
-
-    <script>
-      const externals = {
-        react: "React",
-        "react-dom": "ReactDOM",
-      };
-      function require(moduleName) {
-        return window[externals[moduleName]];
-      }
-
-      const code = `
-import React from 'react';
-import ReactDOM from 'react-dom';
-
-ReactDOM.render(
-  <React.StrictMode>
-    <div>Hello, Sandbox!</div>
-  </React.StrictMode>,
-  document.getElementById('root')
-);`;
-      // ② 转译
-      const transpiledCode = Babel.transform(code, {
-        plugins: [["transform-modules-commonjs"], ["transform-react-jsx"]],
-      }).code;
-      // ③ 执行
-      eval(transpiledCode);
-    </script>
     <script>
       window.addEventListener("message", receiveMessage, false);
-
       function receiveMessage(event) {
-        console.log(event.data);
+        const { codeMap, entry, dependencies, externals } = event.data;
+        window.externals = externals;
+        window.codeMap = codeMap;
+        const transpiledCodeMap = transpile({ codeMap });
+        window.transpiledCodeMap = transpiledCodeMap;
+        eval(transpiledCodeMap[entry].transpileCode);
       }
     </script>
   </body>
