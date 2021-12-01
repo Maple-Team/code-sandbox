@@ -5,6 +5,7 @@
       <TextArea v-model="codeMap['/src/App.jsx']"></TextArea>
       <TextArea v-model="codeMap['/src/data.json']"></TextArea>
       <TextArea v-model="codeMap['/src/App.css']"></TextArea>
+      <TextArea v-model="codeMap['/src/App.less']"></TextArea>
     </div>
     <div class="cb-preview">
       <iframe
@@ -47,6 +48,7 @@ ReactDOM.render(
 import React, { useState } from 'react'
 import { title } from './data.json'
 import './App.css'
+import './App.less'
 
 export default function App() {
   const [count, setCount] = useState(0)
@@ -113,6 +115,14 @@ button {
 }
 `.trim(),
           path: `/src/App.css`,
+        },
+        "/src/App.less": {
+          path: "/src/App.less",
+          code: `
+          p{
+            color: red;
+          }
+          `.trim(),
         },
       },
     };
