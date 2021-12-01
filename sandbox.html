@@ -4,6 +4,13 @@
     <meta charset="UTF-8" />
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./lib/react-refresh-babel.js"></script>
+    <script src="./lib/react-refresh-runtime.js"></script>
+    <script>
+      ReactRefreshRuntime.injectIntoGlobalHook(window);
+      window.$RefreshReg$ = () => {};
+      window.$RefreshSig$ = () => (type) => type;
+    </script>
     <script src="https://unpkg.com/@babel/standalone@7.13.12/babel.min.js"></script>
     <script src="https://unpkg.com/react@16.14.0/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@16.14.0/umd/react-dom.development.js"></script>
