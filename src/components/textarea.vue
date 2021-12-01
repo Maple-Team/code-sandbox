@@ -1,33 +1,35 @@
 <template>
   <div class="cb-textarea">
-    <p class="cb-textarea-filename">{{ filename }}</p>
+    <p class="cb-textarea-path">{{ modelValue?.path }}</p>
     <textarea
       class="cb-textarea-code"
-      @input="onTextareaInput"
-      @change="onTextareaChange"
       :rows="row"
       :placeholder="placeholder"
+      :value="modelValue?.code || ''"
+      @change="onTextareaChange"
     ></textarea>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, PropType } from "vue";
+interface CodeObj {
+  path: string;
+  code: string;
+}
 
 export default defineComponent({
   props: {
-    filename: { type: String, required: true },
-    modelValue: { type: String },
+    modelValue: { type: Object as PropType<CodeObj> },
     row: { type: Number, default: 5 },
     placeholder: { type: String, default: "请在此输入代码" },
   },
   emits: ["update:modelValue"],
   methods: {
     onTextareaChange(e: Event) {
-      this.$emit("update:modelValue", (e.target as HTMLTextAreaElement).value);
-    },
-    onTextareaInput(e: Event) {
-      const input = (e as InputEvent).data;
-      console.log("onInput", input);
+      this.$emit("update:modelValue", {
+        path: this.modelValue?.path,
+        code: (e.target as HTMLTextAreaElement).value,
+      });
     },
   },
 });
@@ -35,7 +37,7 @@ export default defineComponent({
 
 <style lang="less">
 .cb-textarea {
-  .cb-textarea-filename {
+  .cb-textarea-path {
     padding: 5px 0;
   }
   .cb-textarea-code {

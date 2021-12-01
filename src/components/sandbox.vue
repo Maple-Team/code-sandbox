@@ -1,10 +1,10 @@
 <template>
   <div class="cb-container">
     <div class="cb-editor">
-      <TextArea :codeObj="codeMap['/src/index.jsx']"></TextArea>
-      <TextArea :codeObj="codeMap['/src/App.jsx']"></TextArea>
-      <TextArea :codeObj="codeMap['/src/data.json']"></TextArea>
-      <TextArea :codeObj="codeMap['/src/App.css']"></TextArea>
+      <TextArea v-model="codeMap['/src/index.jsx']"></TextArea>
+      <TextArea v-model="codeMap['/src/App.jsx']"></TextArea>
+      <TextArea v-model="codeMap['/src/data.json']"></TextArea>
+      <TextArea v-model="codeMap['/src/App.css']"></TextArea>
     </div>
     <div class="cb-preview">
       <iframe
@@ -18,7 +18,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
-import TextArea from "./textarea2.vue";
+import TextArea from "./textarea.vue";
 
 export default defineComponent({
   components: { TextArea },
@@ -116,6 +116,14 @@ button {
         },
       },
     };
+  },
+  watch: {
+    codeMap: {
+      handler() {
+        this.noticeSandboxUpdate();
+      },
+      deep: true,
+    },
   },
   methods: {
     noticeSandboxUpdate() {
