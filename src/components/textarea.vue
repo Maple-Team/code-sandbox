@@ -1,11 +1,11 @@
 <template>
   <div class="cb-textarea">
-    <p class="cb-textarea-path">{{ modelValue?.path }}</p>
+    <p class="cb-textarea-path">{{ content?.path }}</p>
     <textarea
       class="cb-textarea-code"
       :rows="row"
       :placeholder="placeholder"
-      :value="modelValue?.code || ''"
+      :value="content?.code || ''"
       @change="onTextareaChange"
     ></textarea>
   </div>
@@ -19,17 +19,25 @@ interface CodeObj {
 
 export default defineComponent({
   props: {
-    modelValue: { type: Object as PropType<CodeObj> },
+    content: { type: Object as PropType<CodeObj> },
     row: { type: Number, default: 5 },
     placeholder: { type: String, default: "请在此输入代码" },
   },
-  emits: ["update:modelValue"],
+  emits: ["update:content"],
   methods: {
     onTextareaChange(e: Event) {
-      this.$emit("update:modelValue", {
-        path: this.modelValue?.path,
+      this.$emit("update:content", {
+        path: this.content?.path,
         code: (e.target as HTMLTextAreaElement).value,
       });
+    },
+  },
+  watch: {
+    content: {
+      handler(n, o) {
+        console.log(n, o);
+      },
+      immediate: true,
     },
   },
 });

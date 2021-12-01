@@ -1,11 +1,11 @@
 <template>
   <div class="cb-container">
     <div class="cb-editor">
-      <TextArea v-model="codeMap['/src/index.jsx']"></TextArea>
-      <TextArea v-model="codeMap['/src/App.jsx']"></TextArea>
-      <TextArea v-model="codeMap['/src/data.json']"></TextArea>
-      <TextArea v-model="codeMap['/src/App.css']"></TextArea>
-      <TextArea v-model="codeMap['/src/App.less']"></TextArea>
+      <TextArea v-model:content="codeMap['/src/index.jsx']"></TextArea>
+      <TextArea v-model:content="codeMap['/src/App.jsx']"></TextArea>
+      <TextArea v-model:content="codeMap['/src/data.json']"></TextArea>
+      <TextArea v-model:content="codeMap['/src/App.css']"></TextArea>
+      <TextArea v-model:content="codeMap['/src/App.less']"></TextArea>
     </div>
     <div class="cb-preview">
       <iframe
@@ -129,7 +129,8 @@ button {
   },
   watch: {
     codeMap: {
-      handler() {
+      handler(n) {
+        console.log(n);
         this.noticeSandboxUpdate();
       },
       deep: true,
