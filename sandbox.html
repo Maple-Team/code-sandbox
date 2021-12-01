@@ -5,8 +5,9 @@
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://unpkg.com/@babel/standalone@7.13.12/babel.min.js"></script>
-    <script src="./lib/react.development.js"></script>
-    <script src="./lib/react-dom.development.js"></script>
+    <script src="https://unpkg.com/react@16.14.0/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16.14.0/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/path-browser@2.2.1/path.js"></script>
     <script src="./lib/utils.js"></script>
     <title>iframe preview</title>
     <style>
@@ -20,16 +21,5 @@
   </head>
   <body>
     <div id="root"></div>
-    <script>
-      window.addEventListener("message", receiveMessage, false);
-      function receiveMessage(event) {
-        const { codeMap, entry, dependencies, externals } = event.data;
-        window.externals = externals;
-        window.codeMap = codeMap;
-        const transpiledCodeMap = transpile({ codeMap });
-        window.transpiledCodeMap = transpiledCodeMap;
-        eval(transpiledCodeMap[entry].transpileCode);
-      }
-    </script>
   </body>
 </html>
